@@ -1,0 +1,81 @@
+{
+	"debug": false,
+	"chanceSubtraction": 0.2,
+	"chanceSubtractionDescription": "Basically how it works is that you remove % of negative effect to work. For example, Max Energy drink by default has 100% to give you -1 level in stress resistance. if you have chanceSubtraction set to 0.13 (for example), now it'll have 87% chance to give -1 to you. In base game chance is between 0 and 1, where 0 is 0% and 1 is 100%",
+
+	"effectsToSubtractFromWithValuesBelowZero": [
+		"SkillRate",
+		"EnergyRate",
+		"HydrationRate",
+		"HealthRate"
+	],
+
+	"effectsToSubtractWithValuesFromAboveZero": [
+		"DamageModifier"
+	],
+
+	"effectsToSubtractWithValuesFromZero": [
+		"QuantumTunnelling",
+		"HandsTremor",
+		"Contusion",
+		"Pain",
+		"StomachBloodloss"
+	],
+
+	"buffsToAdjust": [
+			"BuffsSJ1TGLabs",
+			"BuffsSJ6TGLabs",
+			"BuffsPropital",
+			"BuffsZagustin",
+			"BuffseTGchange",
+			"BuffsAdrenaline",
+			"BuffsGoldenStarBalm",
+			"Buffs_drink_aquamari",
+			"Buffs_drink_maxenergy",
+			"Buffs_drink_milk",
+			"Buffs_drink_tarcola",
+			"Buffs_drink_hotrod",
+			"Buffs_drink_juice_army",
+			"Buffs_drink_water",
+			"Buffs_food_borodinskiye",
+			"Buffs_food_condensed_milk",
+			"Buffs_food_emelya",
+			"Buffs_food_mayonez",
+			"Buffs_food_mre",
+			"Buffs_food_sugar",
+			"Buffs_drink_vodka",
+			"Buffs_drink_jack",
+			"Buffs_drink_moonshine",
+			"Buffs_drink_purewater",
+			"Buffs_3bTG",
+			"Buffs_AHF1M",
+			"Buffs_L1",
+			"Buffs_MULE",
+			"Buffs_Meldonin",
+			"Buffs_Obdolbos",
+			"Buffs_P22",
+			"Buffs_KultistsToxin",
+			"Buffs_BodyTemperature",
+			"Buffs_Antidote",
+			"Buffs_melee_bleed",
+			"Buffs_melee_blunt",
+			"Buffs_hultafors",
+			"Buffs_drink_vodka_BAD",
+			"Buffs_food_alyonka",
+			"Buffs_food_slippers",
+			"Buffs_knife",
+			"Buffs_food_beer",
+			"Buffs_Obdolbos2",
+			"Buffs_SJ12_TGLabs",
+			"Buffs_PNB",
+			"Buffs_Trimadol",
+			"Buffs_Perfotoran",
+			"shredder_MoreCombatStims_Regen",
+			"shredder_MoreCombatStims_Ehets",
+			"shredder_MoreCombatStims_EhetsV2",
+			"shredder_MoreCombatStims_Salnrg",
+			"shredder_MoreCombatStims_Cheeta",
+			"shredder_MoreCombatStims_Esm"
+		]
+}
+	
