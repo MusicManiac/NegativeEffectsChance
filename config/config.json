@@ -1,18 +1,21 @@
 {
 	"debug": false,
-	"chanceSubtraction": 0.2,
+	"chanceSubtraction": 0.0,
 	"chanceSubtractionDescription": "Basically how it works is that you remove % of negative effect to work. For example, Max Energy drink by default has 100% to give you -1 level in stress resistance. if you have chanceSubtraction set to 0.13 (for example), now it'll have 87% chance to give -1 to you. In base game chance is between 0 and 1, where 0 is 0% and 1 is 100%",
 
 	"nonLinearSubtraction" : true,
-	"nonLinearSubtractionRepeats" : 1,
+	"nonLinearSubtractionRepeats" : 0,
 	"nonLinearSubtractionDescription" : "If this is set to true, instead of removing flat % it removes % of value. For example, if you set chanceSubtraction to 0.2 and nonLinearSubtractionRepeats to 3 it removes 20% from each buff twice, but it's based on initial value. for example with 100% effect it'd go 1 * 0.8 * 0.8 * 0.8 = 0.512 which is obviously different from 1 - 0.2 - 0.2 - 0.2 = 0.4",
 
 	"OGObdolbos": true,
 	"OGObdolbosDescription": "Makes Obdolbos non-retarded",
 
+	"OGMeldonin": true,
+	"OGMeldoninDescription": "Makes Meldonin great again",
+
 	"maxStrenghtBuffPossible": 20,
-	"maxEnduranceBuffPossible": 1,
-	"maxMetabolismBuffPossible": 0,
+	"maxEnduranceBuffPossible": 20,
+	"maxMetabolismBuffPossible": 20,
 
 	"effectsToSubtractFromWithValuesBelowZero": [
 		"SkillRate",

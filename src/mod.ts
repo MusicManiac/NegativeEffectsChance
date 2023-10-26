@@ -31,6 +31,10 @@ class NegativeEffectsChance implements IPostDBLoadMod
 					logger.info("[NegativeStimEffectsChance] Obdolbos was reset to normal state");
 					obdolbosOverwrite(buffs[sourceOfBuff]);
 				}
+				if (sourceOfBuff == "Buffs_Meldonin" && this.config.OGMeldonin) {
+					logger.info("[NegativeStimEffectsChance] Meldonin was reset to great state");
+					meldoninOverwrite(buffs[sourceOfBuff]);
+				}
 				if (buffsToAdjust.includes(sourceOfBuff)) {
 					for (let specificBuffIndex in buffs[sourceOfBuff]) {
 						let stimEffectUpdated = false;
@@ -219,6 +223,66 @@ function obdolbosOverwrite(buffs) {
 		  "Value": 0,
 		  "AbsoluteValue": false,
 		  "SkillName": ""
+		}
+	)
+}
+
+function meldoninOverwrite(buffs) {
+	buffs.length = 0;
+	buffs.push(	
+		{
+			"BuffType": "DamageModifier",
+			"Chance": 1,
+			"Delay": 1,
+			"Duration": 900,
+			"Value": -0.1,
+			"AbsoluteValue": false,
+			"SkillName": ""
+		},
+		{
+		"AbsoluteValue": true,
+		"BuffType": "SkillRate",
+		"Chance": 1,
+		"Delay": 1,
+		"Duration": 900,
+		"SkillName": "Strength",
+		"Value": 10
+		},
+		{
+		"AbsoluteValue": true,
+		"BuffType": "SkillRate",
+		"Chance": 1,
+		"Delay": 1,
+		"Duration": 900,
+		"SkillName": "Endurance",
+		"Value": 20
+		},
+		{
+		"AbsoluteValue": true,
+		"BuffType": "StaminaRate",
+		"Chance": 1,
+		"Delay": 1,
+		"Duration": 900,
+		"SkillName": "",
+		"Value": 0.5
+		},
+		{
+		"AbsoluteValue": true,
+		"BuffType": "HydrationRate",
+		"Chance": 1,
+		"Delay": 30,
+		"Duration": 900,
+		"SkillName": "",
+		"Value": -0.1
+		},
+		{
+		"AbsoluteValue": true,
+		"BuffType": "EnergyRate",
+		"Chance": 1,
+		"Delay": 30,
+		"Duration": 900,
+		"SkillName": "",
+		"Value": -0.1
 		}
 	)
 }
