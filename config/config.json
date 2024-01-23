@@ -7,10 +7,6 @@
 	"nonLinearSubtractionRepeats" : 0,
 	"nonLinearSubtractionDescription" : "If this is set to true, instead of removing flat % it removes % of value. For example, if you set chanceSubtraction to 0.2 and nonLinearSubtractionRepeats to 3 it removes 20% from each buff twice, but it's based on initial value. for example with 100% effect it'd go 1 * 0.8 * 0.8 * 0.8 = 0.512 which is obviously different from 1 - 0.2 - 0.2 - 0.2 = 0.4",
 
-	"maxStrenghtBuffPossible": 120,
-	"maxEnduranceBuffPossible": 120,
-	"maxMetabolismBuffPossible": 120,
-
 	"maxBuffsPossible" : {
 		"Endurance" : 120,
 		"Strength" : 120,
