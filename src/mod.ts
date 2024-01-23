@@ -19,6 +19,7 @@ class NegativeEffectsChance implements IPostDBLoadMod
 		const effectsZero = this.config.effectsToSubtractWithValuesFromZero;
 		const chanceSubtraction = this.config.chanceSubtraction;
 		const nonLinearSubstraction = Math.pow((1 - this.config.chanceSubtraction), this.config.nonLinearSubtractionRepeats);
+		const maxLevels = this.config.maxBuffsPossible;
 
 		let stimsUpdate = 0;
 
@@ -26,14 +27,6 @@ class NegativeEffectsChance implements IPostDBLoadMod
 			try {
 				if (this.config.debug) {
 					logger.info("[NegativeStimEffectsChance] found stimbuff with name " + sourceOfBuff);
-				}
-				if (sourceOfBuff == "Buffs_Obdolbos" && this.config.OGObdolbos) {
-					logger.info("[NegativeStimEffectsChance] Obdolbos was reset to normal state");
-					obdolbosOverwrite(buffs[sourceOfBuff]);
-				}
-				if (sourceOfBuff == "Buffs_Meldonin" && this.config.OGMeldonin) {
-					logger.info("[NegativeStimEffectsChance] Meldonin was reset to great state");
-					meldoninOverwrite(buffs[sourceOfBuff]);
 				}
 				if (buffsToAdjust.includes(sourceOfBuff)) {
 					for (let specificBuffIndex in buffs[sourceOfBuff]) {
@@ -64,16 +57,8 @@ class NegativeEffectsChance implements IPostDBLoadMod
 							}
 							stimEffectUpdated = true;
 						}
-						if (specificBuff.BuffType === "SkillRate" && specificBuff.SkillName === "Strength" && specificBuff.Value > this.config.maxStrenghtBuffPossible) {
-							specificBuff.Value = this.config.maxStrenghtBuffPossible;
-							stimEffectUpdated = true;
-						}
-						if (specificBuff.BuffType === "SkillRate" && specificBuff.SkillName === "Endurance" && specificBuff.Value > this.config.maxEnduranceBuffPossible) {
-							specificBuff.Value = this.config.maxEnduranceBuffPossible;
-							stimEffectUpdated = true;
-						}
-						if (specificBuff.BuffType === "SkillRate" && specificBuff.SkillName === "Metabolism" && specificBuff.Value > this.config.maxMetabolismBuffPossible) {
-							specificBuff.Value = this.config.maxEnduranceBuffPossible;
+						if (specificBuff.BuffType === "SkillRate" && maxLevels.hasOwnProperty(specificBuff.SkillName) && specificBuff.Value > maxLevels[specificBuff.SkillName]) {
+							specificBuff.Value = maxLevels[specificBuff.SkillName];
 							stimEffectUpdated = true;
 						}
 						if (stimEffectUpdated) { stimsUpdate++ }
@@ -93,198 +78,6 @@ class NegativeEffectsChance implements IPostDBLoadMod
 		}
 		
 	}
-}
-
-function obdolbosOverwrite(buffs) {
-	buffs.length = 0;
-	buffs.push(
-		{
-		  "BuffType": "StaminaRate",
-		  "Chance": 1,
-		  "Delay": 1,
-		  "Duration": 1800,
-		  "Value": 0.5,
-		  "AbsoluteValue": true,
-		  "SkillName": ""
-		},
-		{
-		  "BuffType": "SkillRate",
-		  "Chance": 1,
-		  "Delay": 1,
-		  "Duration": 1800,
-		  "Value": 10,
-		  "AbsoluteValue": true,
-		  "SkillName": "Endurance"
-		},
-		{
-		  "BuffType": "SkillRate",
-		  "Chance": 1,
-		  "Delay": 1,
-		  "Duration": 1800,
-		  "Value": 10,
-		  "AbsoluteValue": true,
-		  "SkillName": "Strength"
-		},
-		{
-		  "BuffType": "SkillRate",
-		  "Chance": 1,
-		  "Delay": 1,
-		  "Duration": 1800,
-		  "Value": 20,
-		  "AbsoluteValue": true,
-		  "SkillName": "StressResistance"
-		},
-		{
-		  "BuffType": "SkillRate",
-		  "Chance": 1,
-		  "Delay": 1,
-		  "Duration": 1800,
-		  "Value": 20,
-		  "AbsoluteValue": true,
-		  "SkillName": "Charisma"
-		},
-		{
-		  "BuffType": "SkillRate",
-		  "Chance": 1,
-		  "Delay": 1,
-		  "Duration": 1800,
-		  "Value": -20,
-		  "AbsoluteValue": true,
-		  "SkillName": "Memory"
-		},
-		{
-		  "BuffType": "SkillRate",
-		  "Chance": 1,
-		  "Delay": 1,
-		  "Duration": 1800,
-		  "Value": -20,
-		  "AbsoluteValue": true,
-		  "SkillName": "Intellect"
-		},
-		{
-		  "BuffType": "SkillRate",
-		  "Chance": 1,
-		  "Delay": 1,
-		  "Duration": 1800,
-		  "Value": -20,
-		  "AbsoluteValue": true,
-		  "SkillName": "Attention"
-		},
-		{
-		  "BuffType": "Pain",
-		  "Chance": 0.25,
-		  "Delay": 1,
-		  "Duration": 1800,
-		  "Value": 0,
-		  "AbsoluteValue": false,
-		  "SkillName": ""
-		},
-		{
-		  "BuffType": "StomachBloodloss",
-		  "Chance": 0.25,
-		  "Delay": 1,
-		  "Duration": 1800,
-		  "Value": 0,
-		  "AbsoluteValue": false,
-		  "SkillName": ""
-		},
-		{
-		  "BuffType": "HydrationRate",
-		  "Chance": 0.25,
-		  "Delay": 1,
-		  "Duration": 1800,
-		  "Value": -0.05,
-		  "AbsoluteValue": true,
-		  "SkillName": ""
-		},
-		{
-		  "BuffType": "EnergyRate",
-		  "Chance": 0.25,
-		  "Delay": 1,
-		  "Duration": 1800,
-		  "Value": -0.05,
-		  "AbsoluteValue": true,
-		  "SkillName": ""
-		},
-		{
-		  "BuffType": "DamageModifier",
-		  "Chance": 0.25,
-		  "Delay": 1,
-		  "Duration": 1800,
-		  "Value": 0.2,
-		  "AbsoluteValue": false,
-		  "SkillName": ""
-		},
-		{
-		  "BuffType": "QuantumTunnelling",
-		  "Chance": 0.25,
-		  "Delay": 1,
-		  "Duration": 1800,
-		  "Value": 0,
-		  "AbsoluteValue": false,
-		  "SkillName": ""
-		}
-	)
-}
-
-function meldoninOverwrite(buffs) {
-	buffs.length = 0;
-	buffs.push(	
-		{
-			"BuffType": "DamageModifier",
-			"Chance": 1,
-			"Delay": 1,
-			"Duration": 900,
-			"Value": -0.1,
-			"AbsoluteValue": false,
-			"SkillName": ""
-		},
-		{
-		"AbsoluteValue": true,
-		"BuffType": "SkillRate",
-		"Chance": 1,
-		"Delay": 1,
-		"Duration": 900,
-		"SkillName": "Strength",
-		"Value": 10
-		},
-		{
-		"AbsoluteValue": true,
-		"BuffType": "SkillRate",
-		"Chance": 1,
-		"Delay": 1,
-		"Duration": 900,
-		"SkillName": "Endurance",
-		"Value": 20
-		},
-		{
-		"AbsoluteValue": true,
-		"BuffType": "StaminaRate",
-		"Chance": 1,
-		"Delay": 1,
-		"Duration": 900,
-		"SkillName": "",
-		"Value": 0.5
-		},
-		{
-		"AbsoluteValue": true,
-		"BuffType": "HydrationRate",
-		"Chance": 1,
-		"Delay": 30,
-		"Duration": 900,
-		"SkillName": "",
-		"Value": -0.1
-		},
-		{
-		"AbsoluteValue": true,
-		"BuffType": "EnergyRate",
-		"Chance": 1,
-		"Delay": 30,
-		"Duration": 900,
-		"SkillName": "",
-		"Value": -0.1
-		}
-	)
 }
 
 module.exports = { mod: new NegativeEffectsChance() }
