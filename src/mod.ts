@@ -18,7 +18,9 @@ class NegativeEffectsChance implements IPostDBLoadMod
 		const effectsAboveZero = this.config.effectsToSubtractWithValuesFromAboveZero;
 		const effectsZero = this.config.effectsToSubtractWithValuesFromZero;
 		const chanceSubtraction = this.config.chanceSubtraction;
-		const nonLinearSubstraction = Math.pow((1 - this.config.chanceSubtraction), this.config.nonLinearSubtractionRepeats);
+		const durationSubtraction = this.config.durationSubtraction;
+		const nonLinearSubtractionChance = Math.pow((1 - this.config.chanceSubtraction), this.config.nonLinearSubtractionRepeats);
+		const nonLinearSubtractionDuration = Math.pow((1 - this.config.durationSubtraction), this.config.nonLinearSubtractionRepeats);
 		const maxLevels = this.config.maxBuffsPossible;
 
 		let stimsUpdate = 0;
@@ -33,29 +35,17 @@ class NegativeEffectsChance implements IPostDBLoadMod
 						let stimEffectUpdated = false;
 						const specificBuff = buffs[sourceOfBuff][specificBuffIndex];
 						
-						if (effectsBelowZero.includes(specificBuff.BuffType) && specificBuff.Value < 0) {
-							if (this.config.nonLinearSubtraction) {
-								specificBuff.Chance = Math.max(0, specificBuff.Chance * nonLinearSubstraction)
-							} else {
-								specificBuff.Chance = Math.max(0, specificBuff.Chance - chanceSubtraction);
-							}
-							stimEffectUpdated = true;
-						}
-						if (effectsAboveZero.includes(specificBuff.BuffType) && specificBuff.Value > 0) {
-							if (this.config.nonLinearSubtraction) {
-								specificBuff.Chance = Math.max(0, specificBuff.Chance * nonLinearSubstraction)
-							} else {
-								specificBuff.Chance = Math.max(0, specificBuff.Chance - chanceSubtraction);
-							}
-							stimEffectUpdated = true;
-						}
-						if (effectsZero.includes(specificBuff.BuffType) && specificBuff.Value === 0) {
-							if (this.config.nonLinearSubtraction) {
-								specificBuff.Chance = Math.max(0, specificBuff.Chance * nonLinearSubstraction)
-							} else {
-								specificBuff.Chance = Math.max(0, specificBuff.Chance - chanceSubtraction);
-							}
-							stimEffectUpdated = true;
+						if ((effectsBelowZero.includes(specificBuff.BuffType) && specificBuff.Value < 0)
+							|| (effectsAboveZero.includes(specificBuff.BuffType) && specificBuff.Value > 0)
+							|| (effectsZero.includes(specificBuff.BuffType) && specificBuff.Value === 0)) {
+								if (this.config.nonLinearSubtraction) {
+									specificBuff.Chance = Math.max(0, specificBuff.Chance * nonLinearSubtractionChance)
+									specificBuff.Duration = Math.max(1, specificBuff.Duration * nonLinearSubtractionDuration)
+								} else {
+									specificBuff.Chance = Math.max(0, specificBuff.Chance - chanceSubtraction);
+									specificBuff.Duration = Math.max(1, specificBuff.Duration - durationSubtraction)
+								}
+								stimEffectUpdated = true;
 						}
 						if (specificBuff.BuffType === "SkillRate" && maxLevels.hasOwnProperty(specificBuff.SkillName) && specificBuff.Value > maxLevels[specificBuff.SkillName]) {
 							specificBuff.Value = maxLevels[specificBuff.SkillName];
